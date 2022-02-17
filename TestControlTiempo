@@ -1,0 +1,125 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+ 
+-- Uncomment the following library declaration if using
+-- arithmetic functions with Signed or Unsigned values
+--USE ieee.numeric_std.ALL;
+ 
+ENTITY TestControlTiempoDes IS
+END TestControlTiempoDes;
+ 
+ARCHITECTURE behavior OF TestControlTiempoDes IS 
+ 
+    -- Component Declaration for the Unit Under Test (UUT)
+ 
+    COMPONENT controlTiempoDes
+    PORT(
+         reloj : IN  std_logic;
+         reset : IN  std_logic;
+         Adelante_Atras : IN  std_logic;
+         TiempoEjecucion : IN  std_logic_vector(3 downto 0);
+         Motor_1_a : OUT  std_logic;
+         Motor_1_b : OUT  std_logic
+        );
+    END COMPONENT;
+    
+
+   --Inputs
+   signal reloj : std_logic := '0';
+   signal reset : std_logic := '0';
+   signal Adelante_Atras : std_logic := '0';
+   signal TiempoEjecucion : std_logic_vector(3 downto 0) := (others => '0');
+
+ 	--Outputs
+   signal Motor_1_a : std_logic;
+   signal Motor_1_b : std_logic;
+   -- No clocks detected in port list. Replace <clock> below with 
+   -- appropriate port name 
+
+ 
+BEGIN
+ 
+	-- Instantiate the Unit Under Test (UUT)
+   uut: controlTiempoDes PORT MAP (
+          reloj => reloj,
+          reset => reset,
+          Adelante_Atras => Adelante_Atras,
+          TiempoEjecucion => TiempoEjecucion,
+          Motor_1_a => Motor_1_a,
+          Motor_1_b => Motor_1_b
+        );
+
+  
+   -- Stimulus process
+   stim_proc: process
+   begin		
+      -- hold reset state for 100 ns.
+      wait for 100 ns;	
+		reloj <= '1';
+		reset <= '1';
+		Motor_1_a <='0';
+		Motor_1_b <='0';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "0000";	
+      wait for 100 ns;
+		reloj <= '0';
+		reset <= '1';
+		Motor_1_a <='1';
+		Motor_1_b <='1';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "0000";	
+      wait for 100 ns;
+		reloj <= '1';
+		reset <= '0';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "0010";
+		wait for 100 ns;
+		reloj <= '0';
+		reset <= '0';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "0011";
+		wait for 100 ns;
+		reloj <= '1';
+		reset <= '1';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "0100";
+		wait for 100 ns;
+		reloj <= '0';
+		reset <= '1';
+		Adelante_Atras <='0';
+		TiempoEjecucion <= "0111";
+		wait for 100 ns;
+		reloj <= '1';
+		reset <= '1';
+		Adelante_Atras <='0';
+		TiempoEjecucion <= "1000";
+		wait for 100 ns;
+		reloj <= '0';
+		reset <= '1';
+		Adelante_Atras <='0';
+		TiempoEjecucion <= "1001";
+		wait for 100 ns;
+		reloj <= '1';
+		reset <= '1';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "1010";
+		wait for 100 ns;
+		reloj <= '0';
+		reset <= '1';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "1011";
+		wait for 100 ns;
+		reloj <= '1';
+		reset <= '1';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "1100";
+		wait for 100 ns;
+		reloj <= '1';
+		reset <= '1';
+		Adelante_Atras <='1';
+		TiempoEjecucion <= "1101";
+		wait;
+		
+   end process;
+
+END;
